@@ -1,5 +1,6 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
+from .forms import CreatePostForm, UpdatePostForm
 from .models import Category, Post
 
 
@@ -31,9 +32,22 @@ class PostDetailsView(DetailView):
     template_name = 'main/post_details.html'
     context_object_name = 'post'
 
+class CreateNewPostView(CreateView):
+    queryset = Post.objects.all()
+    template_name = 'main/create_post.html'
+    form_class = CreatePostForm
+
+class EditPostView(UpdateView):
+    queryset = Post.objects.all()
+    template_name ='main/edit_post.html'
+    form_class = UpdatePostForm
+
+class DeletePostView(DetailView):
+    queryset = Post.objects.all()
+    template_name = 'main/delete_post.html'
 
 #TODO: Смена и восстанавление пароля
-#TODO: Побольше постов добавить через админ
+#TODO: Создание, редактирование и удаление постов
 #TODO: HTML - письмо
 #TODO: Фильтрация, поиск, сортировка
 #TODO: Пагинация
