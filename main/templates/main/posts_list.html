@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block body %}
+
+<p><a href="{% url 'create-post' %}">Создать новый пост</a></p>
  {% for post in posts %}
     <p>{{ post.id }}</p>
     <p>

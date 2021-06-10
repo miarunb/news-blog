@@ -26,7 +26,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='draft')
     pub_date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='posts', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='posts')
@@ -34,3 +34,10 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class FavoritePosts(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,
+                             related_name='favorites')
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             related_name='favorites')
